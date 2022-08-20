@@ -18,7 +18,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and puush
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
         env:
           IMG_VERSION: ${{ inputs.target }}
         run: ./docker-buildx.sh $IMG_VERSION
